@@ -1,0 +1,95 @@
+/* =========================================
+   DESKTOP & TABLET DEFAULT
+   ========================================= */
+.mobile-header, .mobile-nav { display: none; }
+
+/* =========================================
+   TABLET (Max 1024px)
+   ========================================= */
+@media (max-width: 1024px) {
+    .widget-hero { grid-column: span 6; }
+    .widget-status { grid-column: span 6; }
+    .widget-account, .widget-quick-features, .widget-device, .widget-update { grid-column: span 12; }
+}
+
+/* =========================================
+   MOBILE (Max 768px)
+   ========================================= */
+@media (max-width: 768px) {
+    /* Login Mobile */
+    #login-screen {
+        justify-content: center;
+        padding-right: 0;
+        align-items: center;
+        padding: var(--space-md);
+    }
+    
+    .login-container { padding: 0; width: 100%; }
+    
+    .login-header h1 { font-size: 1.8rem; text-align: center; }
+    .login-header p { text-align: center; }
+
+    /* App Mobile */
+    .sidebar { display: none; }
+    
+    .main-content {
+        padding: var(--space-md);
+        padding-bottom: 90px; /* Space cho Bottom Nav */
+        gap: var(--space-md);
+    }
+    
+    .mobile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: var(--space-md);
+    }
+    
+    .mobile-brand {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-family: var(--font-heading);
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    .top-bar { display: none; } /* Ẩn top bar cũ, dùng mobile-header */
+
+    /* Grid to Flex */
+    .dashboard-grid {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+
+    /* Bottom Navigation */
+    .mobile-nav {
+        display: flex;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: var(--glass-bg-heavy);
+        backdrop-filter: var(--glass-blur);
+        border-top: 1px solid var(--glass-border);
+        justify-content: space-around;
+        padding: 12px 0;
+        padding-bottom: calc(12px + env(safe-area-inset-bottom));
+        z-index: var(--z-nav);
+    }
+
+    .mobile-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        font-size: 0.7rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: var(--trans-fast);
+    }
+
+    .mobile-nav-item.active { color: var(--accent-cyan); text-shadow: var(--glow-cyan); }
+    .mobile-nav-item svg { width: 22px; height: 22px; }
+}
