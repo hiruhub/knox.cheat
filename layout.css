@@ -1,0 +1,128 @@
+/* =========================================
+   RESET & BASE
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-body);
+    color: var(--text-main);
+    background-color: var(--bg-base); /* Fallback nếu video lỗi */
+    overflow: hidden; /* Ngăn scroll toàn trang */
+    width: 100vw;
+    height: 100vh;
+}
+
+/* =========================================
+   BACKGROUND MEDIA ENGINE
+   ========================================= */
+.bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: var(--z-bg);
+    pointer-events: none; /* Cho phép click xuyên qua video */
+}
+
+/* Lớp overlay cục bộ cực nhẹ - Không che khuất video */
+.video-overlay-login {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at 15% 50%, rgba(5,2,8,0.6) 0%, transparent 50%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+.video-overlay-app {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(to top, rgba(5,2,8,0.7) 0%, transparent 40%);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* =========================================
+   SCREEN MANAGEMENT
+   ========================================= */
+.screen {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: none;
+    opacity: 0;
+    transition: opacity var(--trans-smooth);
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+}
+
+/* =========================================
+   LOGIN LAYOUT
+   ========================================= */
+#login-screen {
+    align-items: center;
+    justify-content: flex-end; /* Đẩy form sang phải trên desktop */
+    padding-right: 10%;
+    z-index: 10;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 440px;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    z-index: 10;
+}
+
+/* =========================================
+   APP DASHBOARD LAYOUT
+   ========================================= */
+#app-screen {
+    flex-direction: row;
+    z-index: 10;
+}
+
+.sidebar {
+    width: 260px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: var(--space-lg);
+    background: var(--glass-bg-heavy);
+    backdrop-filter: var(--glass-blur);
+    border-right: 1px solid var(--glass-border);
+    z-index: var(--z-nav);
+}
+
+.main-content {
+    flex: 1;
+    height: 100%;
+    overflow-y: auto;
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: var(--space-lg);
+}
+
+/* Widget Grid Spans */
+.widget-hero { grid-column: span 8; }
+.widget-status { grid-column: span 4; }
+.widget-account { grid-column: span 4; }
+.widget-quick-features { grid-column: span 8; }
+.widget-device { grid-column: span 6; }
+.widget-update { grid-column: span 6; }
