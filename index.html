@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>COREX CLIENT | Premium Experience</title>
+    
+    <!-- Google Fonts: Orbitron (Tiêu đề), Inter (Nội dung), Rajdhani (Số liệu) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Import CSS Hệ thống -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- =========================================
+         GLOBAL MEDIA CONTROLLER
+         Bảng điều khiển âm thanh nổi, hiển thị ở cả 2 màn hình
+         ========================================= -->
+    <div id="media-controller" class="glass-panel media-controls" style="position: fixed; bottom: 20px; left: 20px; z-index: 9999; display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 50px;">
+        <button id="audio-toggle" class="btn-text" aria-label="Toggle Audio" style="color: white; display: flex; align-items: center;">
+            <!-- Icon Âm thanh tắt (Mặc định do chính sách trình duyệt) -->
+            <svg id="icon-muted" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+            <!-- Icon Âm thanh bật -->
+            <svg id="icon-unmuted" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 5L6 9H2v6h4l5 4V5z"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+        </button>
+        <input type="range" id="volume-slider" min="0" max="1" step="0.05" value="0.5" style="width: 80px; accent-color: var(--accent-cyan); cursor: pointer;">
+    </div>
+
+    <!-- =========================================
+         SCREEN 1: LOGIN AUTHENTICATION
+         ========================================= -->
+    <div id="login-screen" class="screen active">
+        <!-- Background Video: Bắt buộc giữ nguyên độ sáng, không dùng overlay đen che phủ -->
+        <video id="login-bg-video" class="bg-video" autoplay muted loop playsinline src="https://github.com/hiruhub/Source/raw/refs/heads/main/video1.mp4"></video>
+        <div class="video-overlay-login"></div>
+
+        <div class="login-container">
+            <!-- Header Thương hiệu -->
+            <div class="login-header">
+                <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 8px;">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z"/></svg>
+                    <h1 style="font-size: 2.5rem; margin: 0; background: var(--grad-primary); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">COREX CLIENT</h1>
+                </div>
+                <p class="subtitle" style="text-align: center; color: var(--text-muted); font-size: 0.9rem; letter-spacing: 1px;">TOGETHER IN THE DARK, FOREVER IN LIGHT ♡</p>
+            </div>
+
+            <!-- Bảng Đăng Nhập (Liquid Glass) -->
+            <div class="glass-panel login-panel">
+                <div class="panel-header" style="display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 24px;">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--primary-light)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    <h2 style="font-size: 1.2rem; letter-spacing: 2px;">SECURE LOGIN</h2>
+                </div>
+
+                <form id="login-form">
+                    <!-- Input: Key Bản Quyền -->
+                    <div class="input-group">
+                        <label for="key-input">Enter VIP Key</label>
+                        <div class="input-wrapper">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
+                            <input type="text" id="key-input" placeholder="COREX-XXXX-XXXX-XXXX" required autocomplete="off">
+                            <button type="button" class="btn-text" id="btn-paste">Paste</button>
+                        </div>
+                    </div>
+
+                    <!-- Input: Captcha -->
+                    <div class="input-group">
+                        <label>Xác minh bảo mật (Security Check)</label>
+                        <div class="captcha-wrapper">
+                            <div class="input-wrapper" style="flex:1;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                                <input type="text" placeholder="Nhập mã xác nhận..." required autocomplete="off">
+                            </div>
+                            <div class="captcha-box">
+                                <span id="captcha-text">7FQ2</span>
+                            </div>
+                            <button type="button" class="btn-icon" id="btn-refresh-captcha" style="padding: 12px; border-radius: var(--radius-md); background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); cursor: pointer; color: white;">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Nút Xác Thực -->
+                    <button type="submit" class="btn btn-primary btn-block" id="btn-login" style="margin-top: 10px;">
+                        <span>Verify Key</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"></path></svg>
+                    </button>
+                </form>
+
+                <!-- Dải phân cách -->
+                <div class="divider" style="display: flex; align-items: center; gap: 10px; margin: 20px 0; color: var(--text-muted); font-size: 0.8rem;">
+                    <span style="height: 1px; background: var(--glass-border); flex: 1;"></span>
+                    HOẶC
+                    <span style="height: 1px; background: var(--glass-border); flex: 1;"></span>
+                </div>
+
+                <!-- Nút Discord -->
+                <a href="https://discord.gg/corex" target="_blank" class="btn btn-secondary btn-block">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent-cyan)" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg>
+                    Tham Gia Discord
+                </a>
+            </div>
+
+            <!-- Footer Trạng thái -->
+            <div class="login-footer" style="display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--text-muted); padding: 0 10px;">
+                <span>v1.9.0 Premium Edition</span>
+                <div class="status-indicator" style="display: flex; align-items: center; gap: 6px;">
+                    <span class="dot online"></span> System Status: Ready
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================
+         SCREEN 2: AUTHENTICATED DASHBOARD
+         ========================================= -->
+    <div id="app-screen" class="screen">
+        <!-- Background Video Dashboard: Rực rỡ, không bị che khuất -->
+        <video id="app-bg-video" class="bg-video" autoplay muted loop playsinline src="https://github.com/hiruhub/Source/raw/refs/heads/main/video2.mp4"></video>
+        <div class="video-overlay-app"></div>
+
+        <!-- SIDEBAR (Desktop) -->
+        <aside class="sidebar">
+            <div class="brand-logo-small" style="display: flex; align-items: center; gap: 10px; font-family: var(--font-heading); font-size: 1.3rem; font-weight: bold; margin-bottom: 30px;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z"/></svg>
+                COREX<span style="color: var(--accent);">.</span>
+            </div>
+            
+            <nav class="nav-menu" style="display: flex; flex-direction: column; gap: 8px; flex: 1;">
+                <!-- Nav items sẽ được JS gắn sự kiện -->
+                <a class="nav-item active" data-target="home" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius-md); color: white; text-decoration: none; background: rgba(138, 43, 226, 0.15); border-left: 3px solid var(--accent); cursor: pointer; transition: var(--trans-fast);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                    Home
+                </a>
+                <a class="nav-item" data-target="features" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius-md); color: var(--text-muted); text-decoration: none; cursor: pointer; transition: var(--trans-fast);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                    Features
+                </a>
+                <a class="nav-item" data-target="manage" style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: var(--radius-md); color: var(--text-muted); text-decoration: none; cursor: pointer; transition: var(--trans-fast);">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="20" height="20"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    Manage
+                </a>
+            </nav>
+
+            <!-- Premium Banner -->
+            <div class="premium-banner" style="margin-top: auto; padding: 20px; border-radius: var(--radius-lg); background: linear-gradient(135deg, rgba(138, 43, 226, 0.2), rgba(255, 0, 234, 0.1)); border: 1px solid rgba(255, 0, 234, 0.3); text-align: center;">
+                <h4 style="color: var(--warning); margin-bottom: 5px;">PREMIUM</h4>
+                <p style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 15px;">Unlock Full Power</p>
+                <button class="btn btn-primary btn-sm" style="width: 100%;">Upgrade Now</button>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="main-content">
+            <!-- Top Bar (Desktop) -->
+            <header class="top-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="search-bar" style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); border-radius: 50px; padding: 10px 20px; display: flex; align-items: center; gap: 10px; width: 300px; color: var(--text-muted);">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                    <input type="text" placeholder="Tìm kiếm tính năng..." style="background: transparent; border: none; color: white; outline: none; width: 100%;">
+                </div>
+                <div class="user-profile" style="display: flex; align-items: center; gap: 10px; padding: 5px 15px 5px 5px; background: rgba(255,255,255,0.05); border-radius: 50px; border: 1px solid var(--glass-border);">
+                    <div class="avatar" style="width: 32px; height: 32px; border-radius: 50%; background: var(--grad-primary); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">NH</div>
+                    <div style="display: flex; flex-direction: column;">
+                        <span style="font-size: 0.85rem; font-weight: 600;">NoHardX User</span>
+                        <span style="font-size: 0.7rem; color: var(--warning);">Premium</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Mobile Header -->
+            <div class="mobile-header" style="display: none; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <div class="mobile-brand" style="display: flex; align-items: center; gap: 8px; font-family: var(--font-heading); font-size: 1.2rem; font-weight: bold;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--accent)"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13h-13L12 6.5z"/></svg>
+                    COREX<span style="color: var(--accent);">.</span>
+                </div>
+                <div class="avatar" style="width: 32px; height: 32px; border-radius: 50%; background: var(--grad-primary); display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 0.8rem;">NH</div>
+            </div>
+
+            <!-- ================= PAGE: HOME ================= -->
+            <section id="page-home" class="page-section active">
+                <div class="dashboard-grid">
+                    
+                    <!-- Widget Hero -->
+                    <div class="glass-panel widget widget-hero" style="display: flex; flex-direction: column; justify-content: flex-end; min-height: 220px;">
+                        <div class="status-pill" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.5); padding: 5px 15px; border-radius: 20px; border: 1px solid var(--glass-border); font-size: 0.8rem; display: flex; align-items: center; gap: 8px;">
+                            <span class="dot online"></span> ONLINE
+                        </div>
+                        <h2 style="font-size: 2rem; background: linear-gradient(90deg, #fff, var(--primary-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1.1; margin-bottom: 5px;">COREX CLIENT</h2>
+                        <p style="color: var(--primary-light); font-style: italic; font-size: 0.9rem;">"Together in the Dark, Forever in Light ♡"</p>
+                    </div>
+
+                    <!-- Widget Status -->
+                    <div class="glass-panel widget widget-status" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; min-height: 220px;">
+                        <div class="status-circle" style="width: 100px; height: 100px; border-radius: 50%; background: conic-gradient(var(--accent-cyan) 100%, transparent 0); display: flex; align-items: center; justify-content: center; position: relative; margin-bottom: 15px; box-shadow: 0 0 30px rgba(0, 243, 255, 0.2);">
+                            <div style="position: absolute; width: 90px; height: 90px; background: var(--bg-base); border-radius: 50%;"></div>
+                            <div style="position: relative; z-index: 10; font-family: var(--font-heading); font-size: 1.3rem; font-weight: bold;">100%</div>
+                        </div>
+                        <span style="font-weight: bold; font-size: 0.9rem;">Ready to use!</span>
+                        <span class="badge new" style="margin-top: 10px;">Knox Webmode</span>
+                    </div>
+
+                    <!-- Widget Account -->
+                    <div class="glass-panel widget widget-account">
+                        <div class="widget-header" style="font-weight: 600; margin-bottom: 15px; font-size: 0.9rem;">Account Info</div>
+                        <div style="display: flex; gap: 15px; align-items: center; margin-bottom: 15px;">
+                            <div class="avatar large" style="width: 50px; height: 50px; font-size: 1.2rem;">NH</div>
+                            <div>
+                                <h4 style="font-size: 1.1rem; margin-bottom: 2px;">NoHardX User</h4>
+                                <span class="badge premium">Premium</span>
+                            </div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px;">
+                            <span>Key Status:</span> <span class="text-success">Valid</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted);">
+                            <span>Expire Date:</span> <span style="color: white;">23 Nov 2026</span>
+                        </div>
+                    </div>
+
+                    <!-- Widget Quick Features -->
+                    <div class="glass-panel widget widget-quick-features">
+                        <div class="widget-header" style="font-weight: 600; margin-bottom: 15px; font-size: 0.9rem; display: flex; justify-content: space-between;">
+                            <span>Quick Features</span>
+                            <a href="#" class="view-all" data-target="features" style="color: var(--accent-cyan); text-decoration: none; font-size: 0.8rem;">View All</a>
+                        </div>
+                        <div class="quick-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                            <!-- Nội dung được bơm bởi JS (dashboard.js) -->
+                        </div>
+                    </div>
+
+                    <!-- Widget Device Info -->
+                    <div class="glass-panel widget widget-device">
+                        <div class="widget-header" style="font-weight: 600; margin-bottom: 15px; font-size: 0.9rem; display: flex; justify-content: space-between;">
+                            <span>Device Information</span>
+                            <span class="status-pill small" style="font-size: 0.7rem;"><span class="dot online"></span> Connected</span>
+                        </div>
+                        <div style="font-weight: bold; font-size: 1rem; margin-bottom: 15px;">Android 16 • 2311DRK48G</div>
+                        
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 4px;">
+                            <span>RAM Usage</span> <span>68%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill" style="width: 68%;"></div></div>
+                        
+                        <div style="display: flex; justify-content: space-between; font-size: 0.85rem; color: var(--text-muted); margin-top: 12px; margin-bottom: 4px;">
+                            <span>Storage</span> <span>72%</span>
+                        </div>
+                        <div class="progress-bar"><div class="fill accent" style="width: 72%; background: var(--grad-primary);"></div></div>
+                    </div>
+
+                    <!-- Widget Update Center -->
+                    <div class="glass-panel widget widget-update">
+                        <div class="widget-header" style="font-weight: 600; margin-bottom: 15px; font-size: 0.9rem; display: flex; justify-content: space-between;">
+                            <span>Update Center</span>
+                            <span class="badge new">NEW</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                            <div style="font-size: 2rem; font-family: var(--font-heading); color: var(--primary-light);">v1.9</div>
+                            <div>
+                                <div style="font-weight: 600; font-size: 0.9rem;">Performance Update</div>
+                                <div style="font-size: 0.8rem; color: var(--text-muted);">Reworked Network</div>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary btn-block" style="font-size: 0.85rem;">Update Now</button>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ================= PAGE: FEATURES ================= -->
+            <section id="page-features" class="page-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-heading);">FEATURES</h2>
+                </div>
+                <div class="feature-list" style="display: flex; flex-direction: column; gap: 15px;">
+                    <!-- Nội dung được bơm bởi JS (dashboard.js) -->
+                </div>
+            </section>
+
+            <!-- ================= PAGE: MANAGE ================= -->
+            <section id="page-manage" class="page-section">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2 style="font-family: var(--font-heading);">MANAGE</h2>
+                </div>
+                
+                <div class="glass-panel widget" style="margin-bottom: 20px;">
+                    <div class="widget-header" style="font-weight: 600; margin-bottom: 10px; display: flex; justify-content: space-between;">
+                        <span>This Device</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">🔒 LOCKED</span>
+                    </div>
+                    <div style="font-weight: bold; font-size: 1.1rem; margin-bottom: 5px;">Android 16 • 2311DRK48G</div>
+                    <p class="text-muted" style="font-size: 0.85rem;">One key works on one phone at a time.</p>
+                </div>
+
+                <div class="glass-panel widget">
+                    <button class="btn btn-secondary btn-block" onclick="window.corexApp.logout()" style="background: rgba(255, 51, 102, 0.1); border-color: rgba(255, 51, 102, 0.3); color: var(--error);">
+                        Đăng Xuất (Log Out)
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Mobile Bottom Navigation -->
+        <nav class="mobile-nav">
+            <a class="mobile-nav-item active" data-target="home">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home
+            </a>
+            <a class="mobile-nav-item" data-target="features">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                Features
+            </a>
+            <a class="mobile-nav-item" data-target="manage">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                Manage
+            </a>
+        </nav>
+    </div>
+
+    <!-- Container chứa thông báo (Toasts) -->
+    <div id="toast-container" style="position: fixed; bottom: 24px; right: 24px; z-index: var(--z-toast); display: flex; flex-direction: column; gap: 10px;"></div>
+
+    <!-- Entry Point JavaScript (ES Module) -->
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
