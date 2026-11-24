@@ -1,0 +1,18 @@
+/* =========================================
+   MAIN ENTRY POINT
+   ========================================= */
+
+/* 1. Variables & Design Tokens */
+@import url('./variables.css');
+
+/* 2. Base Layout & Screen Structures */
+@import url('./layout.css');
+
+/* 3. UI Components (Glass, Buttons, Inputs) */
+@import url('./components.css');
+
+/* 4. Animations & Keyframes */
+@import url('./animations.css');
+
+/* 5. Responsive Overrides (Mobile First / Desktop Adjustments) */
+@import url('./responsive.css');
