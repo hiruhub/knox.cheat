@@ -1,0 +1,80 @@
+:root {
+    /* =========================================
+       COLOR SYSTEM
+       ========================================= */
+    --bg-base: #030008;
+    --primary: #8a2be2;
+    --primary-light: #b76eff;
+    --accent: #ff00ea;
+    --accent-cyan: #00f3ff;
+    --success: #00ff88;
+    --error: #ff3366;
+    --warning: #ffbb00;
+    
+    /* Text Colors */
+    --text-main: #ffffff;
+    --text-muted: #a19eb0;
+    --text-dark: #050208;
+    
+    /* =========================================
+       GLASSMORPHISM & SURFACES
+       ========================================= */
+    /* Tuân thủ quy tắc: Trong suốt vừa phải để video vẫn hiển thị rõ ràng */
+    --glass-bg: rgba(15, 10, 25, 0.55);
+    --glass-bg-heavy: rgba(10, 5, 20, 0.75);
+    --glass-bg-light: rgba(255, 255, 255, 0.05);
+    
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-border-bright: rgba(255, 255, 255, 0.3);
+    
+    --glass-blur: blur(16px);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6);
+    
+    /* Neon Glows */
+    --glow-primary: 0 0 15px rgba(138, 43, 226, 0.5);
+    --glow-accent: 0 0 20px rgba(255, 0, 234, 0.4);
+    --glow-cyan: 0 0 15px rgba(0, 243, 255, 0.4);
+    
+    /* =========================================
+       GRADIENTS
+       ========================================= */
+    --grad-primary: linear-gradient(135deg, #8a2be2 0%, #ff00ea 100%);
+    --grad-cyan: linear-gradient(135deg, #00f3ff 0%, #8a2be2 100%);
+    --grad-surface: linear-gradient(180deg, rgba(30,15,50,0.8) 0%, rgba(10,5,20,0.95) 100%);
+    
+    /* =========================================
+       TYPOGRAPHY
+       ========================================= */
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Rajdhani', monospace;
+    
+    /* =========================================
+       SPACING & RADIUS
+       ========================================= */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 20px;
+    --radius-pill: 50px;
+    
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    
+    /* =========================================
+       Z-INDEX HIERARCHY
+       ========================================= */
+    --z-bg: -1;
+    --z-base: 1;
+    --z-nav: 100;
+    --z-modal: 1000;
+    --z-toast: 9999;
+    
+    /* =========================================
+       TRANSITIONS
+       ========================================= */
+    --trans-fast: 0.2s ease;
+    --trans-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
